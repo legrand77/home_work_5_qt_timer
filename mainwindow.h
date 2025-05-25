@@ -1,0 +1,55 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+#include <QMainWindow>
+#include <QTimer>
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
+
+class Stopwatch : public QObject {
+    Q_OBJECT
+
+public:
+    Stopwatch(QObject *parent = nullptr);
+    void start();
+    void stop();
+    void reset();
+    bool isRunning() const;
+    int getCurrentTime() const;
+
+ Q_SIGNALS:
+    void timeUpdated(int seconds);
+
+ private Q_SLOTS:
+    void updateTime();
+
+private:
+    QTimer *timer;
+    int elapsedTime; // в секундах
+    bool running;
+};
+
+class MainWindow : public QMainWindow {
+    Q_OBJECT
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+ private Q_SLOTS:
+    void onStartStopClicked();
+    void onClearClicked();
+    void onLapClicked();
+    void updateTimeDisplay(int seconds);
+    void updateLapDisplay(int lapTime);
+    QString Display(int seconds);
+
+private:
+    Stopwatch *stopwatch;
+    int lapCount;
+    int lastLapTime;
+    Ui::MainWindow *ui;
+
+};
+
+#endif // MAINWINDOW_H

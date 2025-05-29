@@ -1,12 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
+#include <QDebug>
 #include <QTimer>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class Stopwatch : public QObject {
+class Stopwatch : public QObject{
     Q_OBJECT
 
 public:
@@ -18,10 +20,10 @@ public:
     int getCurrentTime() const;
     int getlapCount() const;
     QString Display(int seconds);
-   QString onLapClicked();
+    QString onLapClicked();
 
  Q_SIGNALS:
-    void timeUpdated(int seconds);
+    void timeUpdated(QString seconds);
 
  private Q_SLOTS:
     void updateTime();
@@ -34,6 +36,7 @@ private:
     int lastLapTime;
 };
 
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -45,7 +48,7 @@ public:
     void onStartStopClicked();
     void onClearClicked();
     void onLapClickedMW();
-    void updateTimeDisplay(int seconds);
+    void updateTimeDisplay(QString seconds);
 
 private:
     Stopwatch *stopwatch;

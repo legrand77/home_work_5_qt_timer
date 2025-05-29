@@ -16,6 +16,9 @@ public:
     void reset();
     bool isRunning() const;
     int getCurrentTime() const;
+    int getlapCount() const;
+    QString Display(int seconds);
+   QString onLapClicked();
 
  Q_SIGNALS:
     void timeUpdated(int seconds);
@@ -27,6 +30,8 @@ private:
     QTimer *timer;
     int elapsedTime; // в секундах
     bool running;
+    int lapCount;
+    int lastLapTime;
 };
 
 class MainWindow : public QMainWindow {
@@ -39,15 +44,11 @@ public:
  private Q_SLOTS:
     void onStartStopClicked();
     void onClearClicked();
-    void onLapClicked();
+    void onLapClickedMW();
     void updateTimeDisplay(int seconds);
-    void updateLapDisplay(int lapTime);
-    QString Display(int seconds);
 
 private:
     Stopwatch *stopwatch;
-    int lapCount;
-    int lastLapTime;
     Ui::MainWindow *ui;
 
 };

@@ -21,7 +21,6 @@ void Stopwatch::stop() {
 }
 
 void Stopwatch::reset() {
-    stop();
     elapsedTime = 0;
     emit timeUpdated(elapsedTime);
 }
@@ -72,6 +71,7 @@ void MainWindow::onStartStopClicked() {
 
 void MainWindow::onClearClicked() {
     stopwatch->reset();
+    lastLapTime = 0;
     ui->label->setText("00:00:00.0");
     ui->textBrowser->clear();
     lapCount = 0; // Сброс счетчика кругов
